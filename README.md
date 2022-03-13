@@ -1,6 +1,8 @@
 # Tripstagram
 Instagram clone
 
+Code on devel branch
+
 Live: https://s105.labagh.pl/
 
 **Functionality of the application:
