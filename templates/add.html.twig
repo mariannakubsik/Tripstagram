@@ -1,0 +1,39 @@
+{% extends 'index.html.twig' %}
+
+{% block title %}Add{% endblock %}
+
+{% block body %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-6 mx-auto my-5">
+		<div class="card">
+			<img class="card-img-top" src="Images/perugiaStripe.jpg">
+			<div class="card-body">
+				<h5 class="card-title ">Nowy post</h5>
+				<form action="add.php" enctype="multipart/form-data" method="POST">
+					<div class="d-flex flex-column">
+						<div class="form-gruop row my-3 mx-3">
+							<input class="add-photo" type="file" name="image" accept="image/jpeg,image/jpg">
+						</div>
+						<div class="form-gruop row my-2 mx-3">	
+							<label>Dodaj lokalizację</label>
+							<input class="col-12 form-control" type="text" name="localization" placeholder="Lokalizacja">
+						</div>
+						<div class="form-gruop row my-2 mx-3">
+							<label>Dodaj opis</label>
+							<input class="col-12 form-control" type="text" name="description" placeholder="Opis">
+						</div>
+						<button type="submit" name="submit" class="btn btn-outline-primary mt-4 mx-3">Gotowe</button>
+					</div>
+				</form>
+				<p class="row my-2 mx-3">{{test}}</p>
+			</div>
+		</div>
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,44 @@
+CREATE TABLE `a30_Users` (
+	`id` INT NOT NULL AUTO_INCREMENT UNIQUE,
+	`login` VARCHAR(30) NOT NULL UNIQUE,
+	`password` VARCHAR(300) NOT NULL,
+	`email` VARCHAR(30) NOT NULL UNIQUE,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `a30_Post` (
+	`id` INT NOT NULL AUTO_INCREMENT UNIQUE,
+	`imgSource` VARCHAR(255) NOT NULL UNIQUE,
+	`createdTime` DATETIME NOT NULL,
+	`localization` VARCHAR(100) NOT NULL,
+	`description` VARCHAR(2500) NOT NULL,
+	`userID` INT NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `a30_User-Post-Like` (
+	`id` INT NOT NULL AUTO_INCREMENT UNIQUE,
+	`userID` INT NOT NULL,
+	`PostID` INT NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `a30_User-Post-Comment` (
+	`id` INT NOT NULL AUTO_INCREMENT UNIQUE,
+	`userID` INT NOT NULL,
+	`postID` INT NOT NULL,
+	`comment` VARCHAR(2500) NOT NULL,
+	`createdTimeComment` DATETIME NOT NULL,
+	PRIMARY KEY (`id`)
+);
+
+ALTER TABLE `a30_Post` ADD CONSTRAINT `a30_Post_fk0` FOREIGN KEY (`userID`) REFERENCES `a30_Users`(`id`);
+
+ALTER TABLE `a30_User-Post-Like` ADD CONSTRAINT `a30_User-Post-Like_fk0` FOREIGN KEY (`userID`) REFERENCES `a30_Users`(`id`);
+
+ALTER TABLE `a30_User-Post-Like` ADD CONSTRAINT `a30_User-Post-Like_fk1` FOREIGN KEY (`PostID`) REFERENCES `a30_Post`(`id`);
+
+ALTER TABLE `a30_User-Post-Comment` ADD CONSTRAINT `a30_User-Post-Comment_fk0` FOREIGN KEY (`userID`) REFERENCES `a30_Users`(`id`);
+
+ALTER TABLE `a30_User-Post-Comment` ADD CONSTRAINT `a30_User-Post-Comment_fk1` FOREIGN KEY (`postID`) REFERENCES `a30_Post`(`id`);
+

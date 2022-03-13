@@ -1,0 +1,131 @@
+{% extends 'index.html.twig' %}
+
+{% block title %}Search{% endblock %}
+
+{% block body %}
+
+<div class="container mb-5 mt-5">
+	    <div class="row justify-content-md-center">
+		
+            <div class="col-md-auto">
+
+    		{% for post in posts %}
+				<div class="card mb-5" style="width: 36rem;">                               
+					<div class="card-header p-3">
+                        <div class="d-flex">
+							<a href="/profile/{{post.login}}">
+                            <span class="font-weight-bold" style="color: black">{{post.login}}</span>
+							</a>
+                        </div>
+                    </div>					
+                    <div class="card-body p-0">					
+                        <div class="embed-responsive embed-responsive-1by1">
+                            <img class="embed-responsive-item" style="object-fit: cover;" src={{post.imgSource}} />
+                        </div>
+                        <div class="d-flex flex-row justify-content-between p-3">
+							<div>
+							<strong>Liczba polubień: </strong>
+							<strong>{{post.likes}}</strong>
+							</div>
+							{% if session.id is defined %}
+							<a href="/search.php?lajk={{post.id}}&miejsce={{post.localization}}">
+							<button class="btn p-0 heart-shadow">
+                                <svg width="1.6em" height="1.6em" viewBox="0 0 16 16"
+                                    class="bi bi-heart" fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                </svg>
+                            </button>
+                            </a>	                                
+                            {% else %}
+                            <button class="btn p-0" disabled>
+                                <svg width="1.6em" height="1.6em" viewBox="0 0 16 16"
+                                    class="bi bi-heart" fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                </svg>
+                            </button>
+                            {% endif %}
+                        </div>
+						<div class="px-3 pb-3">
+							<strong style="color: purple">{{post.localization}}</strong>
+						</div>
+						<div class="d-flex flex-column pb-3 pl-3">						
+							<strong class="d-block">{{post.login}}</strong>
+							<p>{{post.description}}</p>	
+                            {% for comment in post.comments %}						
+							<div class="pb-2">
+								<strong class="d-block">{{comment.login}}</strong>
+                                <span>{{comment.comment}}</span>
+							</div>							
+							{% endfor %}							
+						</div>
+                        {% if session.id is defined %}
+                        <form action= "/search.php?koment={{post.id}}&miejsce={{post.localization}}" enctype="multipart/form-data" method="POST">
+						<div class="d-flex flex-row mr-3 mb-3">
+							<div class="col-10">
+								<input class="form-control" type="text" name="commentss" placeholder="Dodaj komentarz">
+							</div>
+							<div class="col-2 pl-3">
+								<button type="submit" name="" class="btn btn-outline-primary">Dodaj</button>
+                                <div>{{info}}</div>
+							</div>
+						</div>
+                        </form>
+                       {% endif %}
+                    </div>
+                </div>	
+    		{% endfor %}
+            </div>
+			
+
+            <div class="col-md-4">
+				<div class="card fixed">
+					<div class="card-header p-3">
+                        {% if session.id is defined %}
+                            <strong>Jesteś zalogowany</strong>
+                        {% else %}
+                            <strong>Masz już konto?</strong>
+                        {% endif %}
+					</div>
+					<div class="card-body">
+                        {% if session.id is defined %}
+                            <strong style="color: #761b7a">{{session.login}}</strong><br>
+							<span class="pr-1">Liczba postów: </span>
+							<span>{{ile_photos}}</span><br>
+							<span class="pr-1">Ostatni post: </span>
+
+                            {% if ile_photos  == 0 %}
+				                <span>-</span><br>
+			                {% else %}
+				                <span>{{last_post.createdTime}}</span><br>
+			                {% endif %}
+                            <div class="mb-2">
+							<form action="" method="POST" class="form-inline my-2 my-lg-0">
+								<button type="submit" name="logout" class="btn btn-outline-secondary mt-3" value="true">Wyloguj</button>
+							</form>
+                            </div>
+                            <p>{{ test }}</p>
+                        {% else %}					
+                        <form action="" method="POST" class="form-group my-2 my-lg-0 col-12">
+						    <div class="mb-2">
+						        <input type="text" name="login" class="form-control" placeholder="Login" aria-label="login">
+						    </div>
+						    <div class="mb-3">
+						        <input type="password" name="password" class="form-control" placeholder="Hasło" aria-label="password">
+						    </div>
+						    <div class="mb-2">
+							    <button class="btn btn-outline-primary" type="submit">Zaloguj się</button>
+						    </div>
+                            <p>{{ test }}</p>
+					    </form>
+                        {% endif %}
+					</div>
+				</div>
+            </div>
+		</div>
+	</div>
+
+{% endblock %}
