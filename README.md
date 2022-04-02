@@ -23,4 +23,5 @@ Live: https://s105.labagh.pl/
 7. Filter images by location
 ![funct_photo9](https://user-images.githubusercontent.com/56201394/123761941-95001e00-d8c2-11eb-9a48-bd2516cae150.png)
 ![funct_photo10](https://user-images.githubusercontent.com/56201394/123761945-96314b00-d8c2-11eb-99db-bf221fa6ed74.png)
-![funct_photo11](https://user-images.githubusercontent.com/56201394/123761955-97fb0e80-d8c2-11eb-9bef-003e77dbb7f2.png)**
+![funct_photo11](https://user-images.githubusercontent.com/56201394/123761955-97fb0e80-d8c2-11eb-9bef-003e77dbb7f2.png)
+**
